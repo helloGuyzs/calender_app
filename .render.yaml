@@ -11,10 +11,11 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
-        value: False
+        value: "False"
       - key: GOOGLE_CLIENT_ID
         value: your-client-id-here
       - key: GOOGLE_CLIENT_SECRET
         value: your-client-secret-here
       - key: REDIRECT_URI
         value: https://calendar-app.onrender.com/oauth2callback
+    postDeployCommand: "python manage.py migrate"
