@@ -6,19 +6,6 @@ services:
     buildCommand: |
       pip install -r requirements.txt
     startCommand: gunicorn calendar_app.wsgi:application --log-file -
-    envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: calendar_app.settings
-      - key: SECRET_KEY
-        generateValue: true
-      - key: DEBUG
-        value: "False"
-      - key: GOOGLE_CLIENT_ID
-        value: your-client-id-here
-      - key: GOOGLE_CLIENT_SECRET
-        value: your-client-secret-here
-      - key: REDIRECT_URI
-        value: https://calendar-app.onrender.com/oauth2callback
     postDeployCommand: |
       echo "Running migrations..."
       python manage.py migrate || { echo "Migration failed"; exit 1; }
