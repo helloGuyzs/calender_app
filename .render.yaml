@@ -5,7 +5,6 @@ services:
     plan: free
     buildCommand: |
       pip install -r requirements.txt
-      python manage.py migrate
     startCommand: gunicorn calendar_app.wsgi:application --log-file -
     envVars:
       - key: DJANGO_SETTINGS_MODULE
@@ -22,5 +21,5 @@ services:
         value: https://calendar-app.onrender.com/oauth2callback
     postDeployCommand: |
       echo "Running migrations..."
-      python manage.py migrate
+      python manage.py migrate || { echo "Migration failed"; exit 1; }
       echo "Migrations completed."
