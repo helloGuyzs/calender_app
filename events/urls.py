@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.http import JsonResponse
 
 def root_view(request):
     return JsonResponse({"message": "Welcome to the Calendar App API"})
