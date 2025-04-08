@@ -18,4 +18,7 @@ services:
         value: your-client-secret-here
       - key: REDIRECT_URI
         value: https://calendar-app.onrender.com/oauth2callback
-    postDeployCommand: "python manage.py migrate"
+    postDeployCommand: |
+      echo "Running migrations..."
+      python manage.py migrate
+      echo "Migrations completed."
