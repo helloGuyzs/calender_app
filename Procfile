@@ -1,1 +1,1 @@
-web: gunicorn calendar_app.wsgi:application --log-file -
+web: python manage.py migrate && gunicorn calendar_app.wsgi:application --log-file -
