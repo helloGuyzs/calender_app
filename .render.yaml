@@ -5,7 +5,6 @@ services:
     plan: free
     buildCommand: |
       pip install -r requirements.txt
-    startCommand: gunicorn calendar_app.wsgi:application --log-file -
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: calendar_app.settings
@@ -22,4 +21,5 @@ services:
     postDeployCommand: |
       echo "Running migrations..."
       python manage.py migrate || { echo "Migration failed"; exit 1; }
-      echo "Migrations completed."
+      echo "Migrations completed."    
+    startCommand: gunicorn calendar_app.wsgi:application --log-file -
