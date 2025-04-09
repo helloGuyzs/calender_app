@@ -141,6 +141,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://3.108.68.73:3000",
     "https://*.ngrok-free.app",
 ]
 

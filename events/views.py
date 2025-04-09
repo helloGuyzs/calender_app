@@ -61,7 +61,7 @@ def oauth2callback(request):
         'scopes': credentials.scopes
     }
     
-    response = redirect("http://localhost:3000/oauth2callback")
+    response = redirect("http://3.108.68.73:3000/oauth2callback")
     response.set_cookie(
         'sessionid',
         request.session.session_key,
