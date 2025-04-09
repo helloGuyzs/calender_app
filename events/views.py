@@ -9,6 +9,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
 import uuid
 from rest_framework import status
 from datetime import datetime
@@ -39,7 +41,7 @@ def oauth2callback(request):
     state = request.GET.get('state')
     
     if not state:
-        return HttpResponse("State param missing ")
+        return HttpResponse("State param missing")
 
     flow = Flow.from_client_secrets_file(
         os.path.join(BASE_DIR, 'credentials.json'),
@@ -58,7 +60,39 @@ def oauth2callback(request):
         'client_secret': credentials.client_secret,
         'scopes': credentials.scopes
     }
-    return HttpResponse("Google Auth Successful  Now you can use calendar APIs!")
+    
+    response = redirect("http://localhost:3000/oauth2callback")
+    response.set_cookie(
+        'sessionid',
+        request.session.session_key,
+        secure=True,  # Only sent over HTTPS
+        httponly=True,
+        samesite='None',  # Allow cross-site
+        domain=None,
+        max_age=1209600  # 2 weeks
+    )
+    return response
+
+@api_view(['POST'])
+def logout(request):
+    try:
+        # Clear the session
+        request.session.flush()
+        # Delete the session cookie
+        response = handle_response(
+            status_code=HTTPStatus.OK,
+            status="Success",
+            message="Logged out successfully"
+        )
+        response.delete_cookie('sessionid')
+        return response
+    except Exception as e:
+        return handle_response(
+            status_code=HTTPStatus.BAD_REQUEST,
+            status="Failed", 
+            message="Logout failed",
+            error=str(e)
+        )
 
 @api_view(['POST'])
 def create_event(request):
@@ -232,5 +266,22 @@ def delete_event(request, event_id):
             status="Failed",
             message="Error deleting event",
             error=str(e)
+        )
+
+@api_view(['GET'])
+def check_calendar_connection(request):
+    if 'credentials' in request.session:
+        return handle_response(
+            status_code=HTTPStatus.OK,
+            status="Success",
+            message="Calendar is connected",
+            response={'isConnected': True}
+        )
+    else:
+        return handle_response(
+            status_code=HTTPStatus.OK,
+            status="Success",
+            message="Calendar is not connected",
+            response={'isConnected': False}
         )
 

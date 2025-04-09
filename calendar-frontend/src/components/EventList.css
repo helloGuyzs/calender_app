@@ -1,0 +1,102 @@
+.events-list {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+  
+  .event-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .event-header h3 {
+    margin: 0;
+    color: #1a73e8;
+  }
+  
+  .event-description {
+    color: #5f6368;
+    margin-bottom: 15px;
+  }
+  
+  .event-time {
+    margin-bottom: 15px;
+  }
+  
+  .event-time div {
+    margin-bottom: 5px;
+  }
+  
+  .event-attendees {
+    margin-bottom: 15px;
+  }
+  
+  .event-attendees ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 5px;
+  }
+  
+  .event-attendees li {
+    color: #5f6368;
+    margin-bottom: 3px;
+  }
+  
+  .event-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .meet-link, .calendar-link {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .meet-link {
+    background-color: #00796b;
+    color: white;
+  }
+  
+  .calendar-link {
+    background-color: #1a73e8;
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  
+  .events-loading,
+  .events-error,
+  .events-empty {
+    text-align: center;
+    padding: 20px;
+    color: #5f6368;
+  }
+  
+  .events-error {
+    color: #dc3545;
+  }
